@@ -2,6 +2,7 @@
 title: "About"
 draft: false
 ReadingTime: false
+comments: false
 ---
 
 # whoami
