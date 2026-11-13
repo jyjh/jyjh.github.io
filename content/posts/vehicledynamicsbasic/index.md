@@ -28,4 +28,3 @@ Thus, the normal forces of the tires must be distributed in a way that "cancels'
 ## Aligning Torque
 
 
-
