@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"{{with .Site.LanguageCode}} xml:lang="{{.}}" lang="{{.}}"{{end}}>
 <head>
+    {{ if and .IsHome .Site.Params.home_hero_image }}
+    <!-- Marks JS availability for the homepage hero splash before first paint -->
+    <script>document.documentElement.classList.add("js");</script>
+    {{ end }}
+
     {{ partial "head/scripts.html" . }}
 
     <!-- Content Type -->
@@ -20,6 +25,14 @@
 
     <!-- Custom style tag for parameterized CSS -->
     {{ partial "head/css.html" . }}
+
+    {{ if and .IsHome .Site.Params.home_hero_image }}
+    <!-- Homepage hero splash -->
+    {{ $heroCss := resources.Get "css/home-hero.css" | minify | fingerprint }}
+    <link type="text/css" rel="stylesheet" href="{{ $heroCss.RelPermalink }}">
+    {{ $heroJs := resources.Get "js/home-hero.js" | minify | fingerprint }}
+    <script defer src="{{ $heroJs.RelPermalink }}"></script>
+    {{ end }}
 
     <!-- Cloudflare Web Analytics -->
     <script type='module' src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "0364bfb119f646d98fb1de22017cf3b4"}'></script>

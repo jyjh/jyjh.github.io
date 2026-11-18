@@ -1,0 +1,43 @@
+{{ define "main" -}}
+{{ $frontPageTypes := default (slice "posts") .Site.Params.front_page_content }}
+{{ $paginator := .Paginate (where .Site.RegularPages "Type" "in" $frontPageTypes) }}
+
+{{/* Hero splash: full-screen art on arrival, lifts away on scroll while the
+     sidebar slides in. See assets/css/home-hero.css and assets/js/home-hero.js.
+     Shown only when home_hero_image is set, on the first homepage page. */}}
+{{ if and .Site.Params.home_hero_image (eq $paginator.PageNumber 1) }}
+<div class="home-hero" data-home-hero>
+    <img class="home-hero__img" src="{{ .Site.Params.home_hero_image }}" alt="">
+    <div class="home-hero__scrim"></div>
+    <div class="home-hero__copy">
+        <p class="home-hero__title">{{ with .Site.Params.brand }}{{ . }}{{ end }}</p>
+        {{ with .Site.Params.home_hero_tagline }}
+        <p class="home-hero__tagline">{{ . }}</p>
+        {{ end }}
+    </div>
+    <a class="home-hero__cue" href="#home-posts">
+        <span>Scroll to explore</span>
+        <svg xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>
+    </a>
+</div>
+{{ end }}
+
+<div class="posts" id="home-posts">
+    {{ range $paginator.Pages }}
+    <article class="post">
+        {{ partial "post/info.html" . }}
+        {{ if or (.Site.Params.noSummary) (.Params.noSummary) }}
+        {{ .Content }}
+        {{ else }}
+        {{ .Summary }}
+        {{ if .Truncated }}
+        <div class="read-more-link">
+            <a href="{{ .RelPermalink }}">Read More…</a>
+        </div>
+        {{ end }}
+        {{ end }}
+    </article>
+    {{- end }}
+</div>
+{{ partial "pagination.html" . }}
+{{- end }}

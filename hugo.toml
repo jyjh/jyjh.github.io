@@ -1,7 +1,7 @@
 baseURL = "/"
 languageCode = "en-us"
 theme = "poison"
-paginate = 10
+pagination.pagerSize = 10
 pluralizelisttitles = false   # removes the automatically appended "s" on sidebar entries
 
 # NOTE: If using Disqus as commenting engine, uncomment and configure this line
@@ -13,6 +13,13 @@ pluralizelisttitles = false   # removes the automatically appended "s" on sideba
     # description = "Update this description..." # Used as default meta description if not specified in front matter
     dark_mode = true                      # optional - defaults to false
     # favicon = "favicon.png"             # path to favicon (defaults to favicon.png)
+
+    # Homepage hero splash: full-screen art on arrival that lifts away on scroll
+    # (sidebar slides in underneath). Currently points at placeholder art -
+    # replace static/images/home-hero.svg with your own artwork (jpg/png/webp/svg).
+    # Delete the line below to disable the splash and revert to the plain homepage.
+    home_hero_image = "/images/home-hero.svg"
+    # home_hero_tagline = ""               # optional short line under the hero title
 
     # MENU PLACEHOLDER
     # Menu dict keys:

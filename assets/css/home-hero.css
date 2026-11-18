@@ -1,0 +1,92 @@
+/* Homepage hero splash (layouts/index.html + assets/js/home-hero.js).
+   A fixed art layer covers the whole window on arrival; scrolling lifts it
+   away while the sidebar slides in. Scrolling back up restores it. */
+
+/* Hidden unless JS runs (js class is set inline in head), so no-JS visitors
+   get the plain homepage instead of a curtain they cannot dismiss. */
+.home-hero {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 500;
+  overflow: hidden;
+  pointer-events: none;
+  background: #141d3d; /* art fallback while the image loads */
+}
+@media (prefers-reduced-motion: no-preference) {
+  .home-hero {
+    transition: transform 0.55s ease;
+  }
+  .sidebar {
+    transition: transform 0.55s ease;
+  }
+}
+.js .home-hero {
+  display: block;
+}
+
+.home-hero__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.home-hero__scrim {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(10, 8, 22, 0.10) 0%, rgba(10, 8, 22, 0.22) 55%, rgba(9, 6, 20, 0.68) 100%);
+}
+
+.home-hero__copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  transform: translateY(-58%);
+  text-align: center;
+  color: #fff;
+  padding: 0 2rem;
+  text-shadow: 0 2px 18px rgba(0, 0, 0, 0.55);
+}
+
+/* Poison colors .content p / .content a directly, which beats inherited white;
+   restate the colors on the exact elements so the hero stays readable. */
+.home-hero .home-hero__title {
+  margin: 0;
+  font-family: "Abril Fatface", serif;
+  font-weight: 300;
+  font-size: 3.7em;
+  line-height: 1.05;
+  color: #fff;
+}
+
+.home-hero .home-hero__tagline {
+  margin: 0.7rem 0 0;
+  font-size: 1em;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.home-hero .home-hero__cue {
+  pointer-events: auto;
+  position: absolute;
+  bottom: 1.5rem;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-size: 0.8em;
+  text-decoration: none;
+  text-shadow: 0 1px 10px rgba(0, 0, 0, 0.6);
+  color: rgba(255, 255, 255, 0.85);
+}
+.home-hero .home-hero__cue:hover,
+.home-hero .home-hero__cue:focus {
+  color: #fff;
+}
+.home-hero .home-hero__cue svg {
+  width: 1em;
+  height: 1em;
+}
